@@ -37,23 +37,48 @@ export default function App() {
             <div className={step >= 3 ? "active" : ""}>3</div>
           </div>
 
-          <p className="message">
-            Step {step}: {messages[step - 1]}
-          </p>
+          <StepMessage step={step} >
+            {messages[step - 1]}
+            <div className="buttons">
+              <Button
+                bgColor="#7950f2"
+                textColor="#333"
+                onClick={() => alert(`Learn how to ${messages[step - 1]}`)}
+              >
+                Learn how
+              </Button>
+            </div>
+          </StepMessage>
 
           <div className="buttons">
-            <button onClick={handlePrevious} style={{ backgroundColor: "#7950f2", color: "#fff" }}
-              className="previous" >
-              previous
-            </button>
-            <button onClick={handleNext} style={{ backgroundColor: "#7950f2", color: "#fff" }}
-              className="next" >
-              next
-            </button>
+            <Button onClick={handlePrevious} bgColor="#7950f2" textColor="#fff">
+              <span>👈</span> Previous
+            </Button>
+            <Button onClick={handleNext} bgColor="#7950f2" textColor="#fff" >
+              Next <span>👉</span>
+            </Button>
           </div>
-
         </div>
       }
     </>
+  );
+}
+
+const StepMessage = ({ step, children }) => {
+
+  return (
+    <div className="message">
+      <h3>Step {step}:</h3>
+      {children}
+    </div>
+  );
+}
+
+const Button = ({ bgColor, textColor, onClick, children }) => {
+
+  return (
+    <button onClick={onClick} style={{ backgroundColor: bgColor, color: textColor }} >
+      {children}
+    </button>
   );
 }
